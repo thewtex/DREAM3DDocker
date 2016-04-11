@@ -5,7 +5,9 @@ RUN mkdir /usr/src/DREAM3D
 WORKDIR /usr/src/DREAM3D
 
 ENV DREAM3D_VERSION 81ab13acb74e2cf2bef1c7ddc7527668f985933a
-RUN git clone https://github.com/dream3d/DREAM3D.git && \
+ENV DREAM3D_VERSION 72c46494543178b0f8769a708a8c2c10a2a0bec0
+#RUN git clone https://github.com/dream3d/DREAM3D.git && \
+RUN git clone https://github.com/thewtex/DREAM3D.git && \
   cd DREAM3D && \
   git checkout ${DREAM3D_VERSION}
 
@@ -32,10 +34,12 @@ RUN mkdir DREAM3D-build-Release && \
   cmake -C /usr/src/DREAM3D_SDK/DREAM3D_SDK.cmake \
     -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr/src/DREAM3D_SDK/prefix-Release/ \
     ../DREAM3D && \
-  ninja
-
-VOLUME /usr/src/DREAM3D
+  ninja && \
+  ninja install
 
 # The app to run in the x11vnc server
 ENV APP /usr/src/DREAM3D/DREAM3D-build-Release/Bin/DREAM3D
+
+VOLUME /usr/src/DREAM3D_SDK

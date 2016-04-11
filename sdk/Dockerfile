@@ -143,4 +143,3 @@ RUN wget --content-disposition https://sourceforge.net/projects/itk/files/itk/4.
   cd .. && rm -rf InsightToolkit*
 
 ADD DREAM3D_SDK.cmake /usr/src/DREAM3D_SDK/
-VOLUME /usr/src/DREAM3D_SDK
